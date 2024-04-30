@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %} error {% endblock %} {% block
+content %}
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">{{msg}}</h1>
+    <h3 class="card-subtitle mb-2 text-muted">{{second_msg}}</h3>
+    <hr />
+    <div class="d-flex flex-wrap">
+      <div>
+        {% for defs in defs %}
+
+        <a href="/detail/{{defs}}?status_give=new" class="btn btn-primary"
+          >{{ defs }}</a
+        >
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block footer %}
+<li class="nav-item">
+  <a href="/" class="nav-link px-2 text-muted">Home</a>
+</li>
+{% endblock %}

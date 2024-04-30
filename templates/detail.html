@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block title %} Detail {% endblock %} {% block
+content %}
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-end">
+    <div>
+      <h1 id="word" style="display: inline">{{word}}</h1>
+    </div>
+  </div>
+  <hr />
+  <div id="definition">
+    {% for def in definitions %} {% set category = def.fl %} {% set shortdef =
+    def.shortdef[0] %} {% set date = def.date %}
+
+    <div style="padding: 10px">
+      <i>{{category}}</i>
+      <br />
+      {{shortdef}}
+      <br />
+      <span class="example">{{date}}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <hr />
+  {% if status == "new" %}
+
+  <button
+    id="btn-save"
+    onclick="save_word()"
+    class="btn btn-sparta-outline btn-lg"
+  >
+    SAVE
+  </button>
+  {% else %}
+
+  <button id="btn-delete" onclick="delete_word()" class="btn btn-sparta btn-lg">
+    DELETE
+  </button>
+
+  <div id="examples" class="container">
+    <h3 style="text-align: center; margin-bottom: 1rem">
+      Write your own sentences!
+    </h3>
+    <ul id="example-list"></ul>
+    <div class="d-flex justify-content-between" style="margin-left: 20px">
+      <input
+        id="new-example"
+        class="form-control form-control-sm"
+        style="margin-right: 0.5rem"
+      />
+      <button
+        type="submit"
+        class="btn btn-outline-secondary btn-sm"
+        onclick="add_ex()"
+      >
+        add
+      </button>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %} {% block footer %}
+<li class="nav-item">
+  <a href="/" class="nav-link px-2 text-muted">Home</a>
+</li>
+<script>
+  let word = "{{word}}";
+  let defs = {{ definitions | tojson }}
+
+  $(document).ready(function(){
+    get_examples()
+  })
+</script>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+
+{% endblock %}
